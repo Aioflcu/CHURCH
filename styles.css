@@ -1055,10 +1055,44 @@ p {
         position: relative;
     }
 
+    .nav-toggle {
+        display: flex;
+    }
+
     .nav-menu {
+        position: fixed;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        height: calc(100vh - 80px);
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
         flex-direction: column;
-        gap: 1rem;
-        margin-top: 1rem;
+        justify-content: flex-start;
+        align-items: center;
+        padding-top: 2rem;
+        gap: 2rem;
+        transform: translateX(-100%);
+        opacity: 0;
+        visibility: hidden;
+        z-index: 1000;
+    }
+
+    .nav-menu.active {
+        transform: translateX(0);
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .nav-menu li {
+        width: 100%;
+        text-align: center;
+    }
+
+    .nav-menu li a {
+        display: block;
+        padding: 1rem;
+        font-size: 1.2rem;
     }
 
     .page-header {
@@ -1122,6 +1156,104 @@ p {
     .btn {
         width: 100%;
         margin-bottom: 1rem;
+    }
+
+    /* Hero section mobile optimization */
+    .hero-content h1 {
+        font-size: 2rem !important;
+    }
+
+    .hero-content p {
+        font-size: 1rem !important;
+    }
+
+    .hero-stats {
+        flex-direction: column;
+        gap: 1rem !important;
+    }
+
+    .hero-buttons {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .hero-buttons .btn {
+        width: 100%;
+        padding: 0.8rem 1rem;
+        font-size: 1rem;
+    }
+
+    /* Navigation mobile improvements */
+    .nav-container {
+        padding: 0.5rem 0;
+    }
+
+    .logo {
+        font-size: 1.2rem;
+    }
+
+    /* Card improvements for mobile */
+    .card,
+    .program-card,
+    .ministry-card,
+    .event-card,
+    .prayer-card,
+    .blog-card,
+    .regular-event,
+    .about-text,
+    .prayer-form {
+        padding: 1.5rem;
+    }
+
+    /* Grid improvements */
+    .programs-grid,
+    .events-grid,
+    .gallery-grid,
+    .blog-grid,
+    .prayer-requests {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    /* Footer mobile */
+    .footer-content {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .footer-section {
+        text-align: center;
+    }
+
+    /* Stats grid mobile */
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+    }
+
+    .stat-card {
+        text-align: center;
+        padding: 1rem;
+    }
+
+    /* Testimonials mobile */
+    .testimonials-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .testimonial-card {
+        padding: 1.5rem;
+    }
+
+    /* CTA section mobile */
+    .cta-buttons {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .cta-buttons .btn {
+        width: 100%;
     }
 }
 
