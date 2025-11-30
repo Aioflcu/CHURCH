@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Stream - Jesus Discipleship Ministry</title>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⛪</text></svg>">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container container">
+            <div class="logo">Jesus Discipleship Ministry</div>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="programs.html">Programs</a></li>
+                <li><a href="events.html">Events</a></li>
+                <li><a href="give.html">Give</a></li>
+                <li><a href="prayer-wall.html">Prayer Wall</a></li>
+                <li><a href="daily-scripture.html">Daily Scripture</a></li>
+                <li><a href="sermons.html">Sermons</a></li>
+                <li><a href="live-stream.html">Live Stream</a></li>
+                <li><a href="hymns.html">Hymns</a></li>
+                <li><a href="prayer-rooms.html">Prayer Rooms</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <button class="theme-toggle" id="theme-toggle">🌙</button>
+        </div>
+    </nav>
+
+    <main>
+        <!-- Notification Banner -->
+        <div id="notification-banner" style="display: none; background: #3498db; color: white; text-align: center; padding: 15px; position: relative;">
+            <span id="notification-message"></span>
+            <button onclick="dismissNotification()" style="position: absolute; right: 15px; background: none; border: none; color: white; font-size: 20px; cursor: pointer;">×</button>
+        </div>
+
+        <div class="page-header">
+            <div class="container">
+                <h1>Live Service Streaming</h1>
+                <p>Join us live for worship, prayer, and fellowship</p>
+            </div>
+        </div>
+
+        <section class="live-stream-section">
+            <div class="container">
+                <div class="stream-container">
+                    <div class="stream-tabs">
+                        <button class="stream-tab active" data-platform="youtube">YouTube Live</button>
+                        <button class="stream-tab" data-platform="facebook">Facebook Live</button>
+                    </div>
+
+                    <div class="video-player">
+                        <div id="youtube-stream" class="stream-content active">
+                            <div id="youtube-embed">
+                                <div class="stream-placeholder">
+                                    <div class="stream-status">
+                                        <div class="status-indicator offline"></div>
+                                        <h3>YouTube Stream Offline</h3>
+                                        <p>Live services are held every Sunday at 9:00 AM</p>
+                                        <p>Check back during service times or follow us on YouTube for updates.</p>
+                                        <a href="https://www.youtube.com/@olusolaemmanuelayodele" target="_blank" class="btn btn-primary">Visit YouTube Channel</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="facebook-stream" class="stream-content">
+                            <div id="facebook-embed">
+                                <div class="stream-placeholder">
+                                    <div class="stream-status">
+                                        <div class="status-indicator offline"></div>
+                                        <h3>Facebook Stream Offline</h3>
+                                        <p>Live services are held every Sunday at 9:00 AM</p>
+                                        <p>Check back during service times or follow us on Facebook for updates.</p>
+                                        <a href="https://www.facebook.com/profile.php?id=100086766063315" target="_blank" class="btn btn-primary">Visit Facebook Page</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="stream-controls">
+                            <button class="control-btn" id="fullscreenBtn">⛶ Fullscreen</button>
+                            <button class="control-btn" id="refreshBtn">🔄 Refresh</button>
+                        </div>
+                    </div>
+
+                    <div class="stream-info">
+                        <h3>Current Service</h3>
+                        <div class="service-details">
+                            <p><strong>Sunday Worship Service</strong></p>
+                            <p><strong>Time:</strong> 10:00 AM - 12:00 PM</p>
+                            <p><strong>Speaker:</strong> Pastor Olusola Emmanuel Ayodele</p>
+                            <p><strong>Topic:</strong> Walking in Faith</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chat-section">
+                    <h3>Live Chat</h3>
+                    <div class="chat-container">
+                        <div class="chat-messages" id="chatMessages">
+                            <div class="message">
+                                <span class="username">System:</span>
+                                <span class="text">Welcome to Jesus Discipleship Ministry Live Stream!</span>
+                            </div>
+                        </div>
+                        <div class="chat-input">
+                            <input type="text" id="chatInput" placeholder="Type your message..." maxlength="200">
+                            <button id="sendBtn">Send</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="upcoming-services">
+                    <h3>Upcoming Live Services</h3>
+                    <div class="service-schedule">
+                        <div class="service-item">
+                            <div class="service-time">Sunday 10:00 AM</div>
+                            <div class="service-title">Sunday Worship Service</div>
+                            <div class="service-speaker">Pastor Olusola Emmanuel Ayodele</div>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-time">Wednesday 6:00 PM</div>
+                            <div class="service-title">Bible Study</div>
+                            <div class="service-speaker">Ministry Leaders</div>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-time">Thursday 5:00 PM</div>
+                            <div class="service-title">Solution Hour</div>
+                            <div class="service-speaker">Prayer Team</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Contact Information</h3>
+                    <p><strong>Email:</strong> olusolaea12@gmail.com</p>
+                    <p><strong>Phone:</strong> +234 7067581767</p>
+                    <p><strong>Address:</strong> Yejide Junction, near St. Luke Grammar School, Molete Ibadan, Nigeria</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Service Times</h3>
+                    <p><strong>Sunday Service:</strong> 9:00 AM</p>
+                    <p><strong>Bible Study:</strong> Tuesday 6:00 PM</p>
+                    <p><strong>Prayer Meeting:</strong> Thursday 5:00 PM</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Follow Us</h3>
+                    <p>Stay connected with our community through social media and regular updates.</p>
+                    <p><a href="https://www.facebook.com/profile.php?id=100086766063315">Facebook</a> | <a href="www.youtube.com/@olusolaemmanuelayodele">YouTube</a> | <a href="">Instagram</a></p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Jesus Discipleship Ministry. All rights reserved. | Founded 1990 | <a href="admin.html" style="color: #3498db; text-decoration: none;">Admin</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Live Stream Controls and Tab Switching
+        const fullscreenBtn = document.getElementById('fullscreenBtn');
+        const refreshBtn = document.getElementById('refreshBtn');
+
+        // Tab switching functionality
+        document.querySelectorAll('.stream-tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                // Remove active class from all tabs
+                document.querySelectorAll('.stream-tab').forEach(t => t.classList.remove('active'));
+                // Add active class to clicked tab
+                this.classList.add('active');
+
+                // Hide all stream content
+                document.querySelectorAll('.stream-content').forEach(content => content.classList.remove('active'));
+
+                // Show selected stream content
+                const platform = this.dataset.platform;
+                document.getElementById(platform + '-stream').classList.add('active');
+
+                // Load stream for selected platform
+                loadStream(platform);
+            });
+        });
+
+        // Load stream function
+        function loadStream(platform) {
+            const embedContainer = document.getElementById(platform + '-embed');
+
+            // Clear existing content
+            embedContainer.innerHTML = '';
+
+            // Check if admin has enabled live streaming
+            const liveEnabled = localStorage.getItem('live_stream_enabled') === 'true';
+
+            if (liveEnabled) {
+                // Admin has started live session - load the stream
+                if (platform === 'youtube') {
+                    loadYouTubeLive(embedContainer);
+                } else if (platform === 'facebook') {
+                    loadFacebookLive(embedContainer);
+                }
+            } else {
+                // Check if it's service time but admin hasn't started yet
+                const now = new Date();
+                const isServiceTime = checkServiceTime(now);
+
+                if (isServiceTime) {
+                    // Service time but admin hasn't started - show waiting message
+                    showWaitingMessage(embedContainer, platform);
+                } else {
+                    // Not service time - show offline message
+                    showOfflineMessage(embedContainer, platform);
+                }
+            }
+        }
+
+        // Check if it's service time
+        function checkServiceTime(currentTime) {
+            const day = currentTime.getDay(); // 0 = Sunday
+            const hour = currentTime.getHours();
+
+            // Sunday service: 9 AM
+            if (day === 0 && hour >= 9 && hour < 12) return true;
+
+            // Tuesday discipleship: 6 PM
+            if (day === 2 && hour >= 18 && hour < 20) return true;
+
+            // Thursday solution hour: 5 PM
+            if (day === 4 && hour >= 17 && hour < 19) return true;
+
+            return false;
+        }
+
+        // Load YouTube Live Stream
+        function loadYouTubeLive(container) {
+            // YouTube channel ID or live stream URL would be configured here
+            // For now, we'll show a placeholder that can be updated with actual stream URL
+            const liveStreamUrl = localStorage.getItem('youtube_live_url') || null;
+
+            if (liveStreamUrl) {
+                // Extract video ID from URL
+                const videoId = extractYouTubeVideoId(liveStreamUrl);
+                if (videoId) {
+                    container.innerHTML = `
+                        <iframe width="100%" height="400"
+                            src="https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1"
+                            frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen>
+                        </iframe>
+                    `;
+                } else {
+                    showOfflineMessage(container, 'youtube');
+                }
+            } else {
+                showOfflineMessage(container, 'youtube');
+            }
+        }
+
+        // Load Facebook Live Stream
+        function loadFacebookLive(container) {
+            const liveVideoUrl = localStorage.getItem('facebook_live_url') || null;
+
+            if (liveVideoUrl) {
+                // Check if it's a direct video URL
+                if (liveVideoUrl.includes('/videos/')) {
+                    // Extract video ID and page ID
+                    const videoMatch = liveVideoUrl.match(/facebook\.com\/(\d+)\/videos\/(\d+)/);
+                    if (videoMatch) {
+                        const pageId = videoMatch[1];
+                        const videoId = videoMatch[2];
+                        container.innerHTML = `
+                            <iframe
+                                src="https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2F${pageId}%2Fvideos%2F${videoId}%2F&show_text=false&width=560"
+                                width="100%"
+                                height="400"
+                                style="border:none;overflow:hidden"
+                                scrolling="no"
+                                frameborder="0"
+                                allowfullscreen="true"
+                                allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+                                allowFullScreen="true">
+                            </iframe>
+                        `;
+                        return;
+                    }
+                } else if (liveVideoUrl.includes('facebook.com/')) {
+                    // Try to embed the page directly
+                    container.innerHTML = `
+                        <iframe
+                            src="${liveVideoUrl}"
+                            width="100%"
+                            height="400"
+                            style="border:none;overflow:hidden"
+                            scrolling="no"
+                            frameborder="0"
+                            allowfullscreen="true"
+                            allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+                            allowFullScreen="true">
+                        </iframe>
+                    `;
+                    return;
+                }
+
+                // Fallback: show the URL as a link
+                container.innerHTML = `
+                    <div class="stream-placeholder">
+                        <div class="stream-status">
+                            <div class="status-indicator live"></div>
+                            <h3>Facebook Live Active</h3>
+                            <p>Click below to watch the live stream on Facebook</p>
+                            <a href="${liveVideoUrl}" target="_blank" class="btn btn-primary">Watch on Facebook</a>
+                        </div>
+                    </div>
+                `;
+            } else {
+                showOfflineMessage(container, 'facebook');
+            }
+        }
+
+        // Extract YouTube video ID from URL
+        function extractYouTubeVideoId(url) {
+            const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
+            const match = url.match(regExp);
+            return (match && match[2].length == 11) ? match[2] : null;
+        }
+
+        // Extract Facebook video ID from URL
+        function extractFacebookVideoId(url) {
+            // Facebook video URLs can vary, this is a basic extraction
+            const match = url.match(/videos\/(\d+)/);
+            return match ? match[1] : null;
+        }
+
+        // Show waiting message (when admin hasn't started live session yet)
+        function showWaitingMessage(container, platform) {
+            const platformName = platform.charAt(0).toUpperCase() + platform.slice(1);
+
+            container.innerHTML = `
+                <div class="stream-placeholder">
+                    <div class="stream-status">
+                        <div class="status-indicator waiting"></div>
+                        <h3>Waiting for Live Session</h3>
+                        <p>Our live ${platformName} stream will be available once the pastor starts the service.</p>
+                        <p>You will receive a notification when we go live.</p>
+                        <div style="margin-top: 15px;">
+                            <a href="${platform === 'youtube' ? 'https://www.youtube.com/@olusolaemmanuelayodele' : 'https://www.facebook.com/profile.php?id=100086766063315'}" target="_blank" class="btn btn-primary">Visit ${platformName} Channel</a>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Show offline message
+        function showOfflineMessage(container, platform) {
+            const platformName = platform.charAt(0).toUpperCase() + platform.slice(1);
+            const channelUrl = platform === 'youtube'
+                ? 'https://www.youtube.com/@olusolaemmanuelayodele'
+                : 'https://www.facebook.com/profile.php?id=100086766063315';
+
+            container.innerHTML = `
+                <div class="stream-placeholder">
+                    <div class="stream-status">
+                        <div class="status-indicator offline"></div>
+                        <h3>${platformName} Stream Offline</h3>
+                        <p>Live services are held every Sunday at 9:00 AM</p>
+                        <p>Check back during service times or follow us on ${platformName} for updates.</p>
+                        <a href="${channelUrl}" target="_blank" class="btn btn-primary">Visit ${platformName} Channel</a>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Fullscreen functionality
+        fullscreenBtn.addEventListener('click', () => {
+            const videoPlayer = document.querySelector('.video-player');
+            if (document.fullscreenElement) {
+                document.exitFullscreen();
+            } else {
+                videoPlayer.requestFullscreen();
+            }
+        });
+
+        // Refresh functionality
+        refreshBtn.addEventListener('click', () => {
+            const activeTab = document.querySelector('.stream-tab.active');
+            if (activeTab) {
+                const platform = activeTab.dataset.platform;
+                loadStream(platform);
+            }
+        });
+
+        // Chat functionality
+        const chatInput = document.getElementById('chatInput');
+        const sendBtn = document.getElementById('sendBtn');
+        const chatMessages = document.getElementById('chatMessages');
+
+        function addMessage(username, text) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'message';
+            messageDiv.innerHTML = `<span class="username">${username}:</span> <span class="text">${text}</span>`;
+            chatMessages.appendChild(messageDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        sendBtn.addEventListener('click', () => {
+            const message = chatInput.value.trim();
+            if (message) {
+                addMessage('You', message);
+                chatInput.value = '';
+
+                // Simulate response
+                setTimeout(() => {
+                    const responses = [
+                        'Amen! 🙏',
+                        'Praise the Lord! ⛪',
+                        'Thank you for joining us today!',
+                        'God bless you! ❤️'
+                    ];
+                    const randomResponse = responses[Math.floor(Math.random() * responses.length)];
+                    addMessage('Church Member', randomResponse);
+                }, 1000 + Math.random() * 2000);
+            }
+        });
+
+        chatInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                sendBtn.click();
+            }
+        });
+
+        // Add some initial chat messages
+        setTimeout(() => addMessage('Sarah .', 'Beautiful worship today! 🙏'), 2000);
+        setTimeout(() => addMessage('Israel.', 'Thank you for the encouraging message Pastor!'), 4000);
+        setTimeout(() => addMessage('Mary .', 'Praying for everyone watching today ❤️'), 6000);
+
+        // Notification system
+        function showNotification(message) {
+            const banner = document.getElementById('notification-banner');
+            const messageEl = document.getElementById('notification-message');
+            messageEl.textContent = message;
+            banner.style.display = 'block';
+
+            // Auto-hide after 10 seconds
+            setTimeout(() => {
+                dismissNotification();
+            }, 10000);
+        }
+
+        function dismissNotification() {
+            const banner = document.getElementById('notification-banner');
+            banner.style.display = 'none';
+        }
+
+        // Check for live session notifications
+        function checkForLiveNotifications() {
+            const liveEnabled = localStorage.getItem('live_stream_enabled') === 'true';
+            const lastNotification = localStorage.getItem('last_live_notification');
+
+            if (liveEnabled && lastNotification !== 'shown') {
+                showNotification('🎥 We are now LIVE! Join us for worship and fellowship.');
+                localStorage.setItem('last_live_notification', 'shown');
+            } else if (!liveEnabled && lastNotification === 'shown') {
+                showNotification('🏁 Live session has ended. Thank you for joining us!');
+                localStorage.removeItem('last_live_notification');
+            }
+        }
+
+        // Initialize - load YouTube stream by default
+        loadStream('youtube');
+
+        // Check for notifications every 30 seconds
+        setInterval(checkForLiveNotifications, 30000);
+
+        // Check immediately on load
+        checkForLiveNotifications();
+
+        // Auto-refresh every 5 minutes during service times
+        setInterval(() => {
+            if (checkServiceTime(new Date())) {
+                const activeTab = document.querySelector('.stream-tab.active');
+                if (activeTab) {
+                    const platform = activeTab.dataset.platform;
+                    loadStream(platform);
+                }
+            }
+        }, 300000); // 5 minutes
+    </script>
+    <script src="script.js"></script>
+</body>
+</html>

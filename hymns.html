@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hymns - Jesus Discipleship Ministry</title>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⛪</text></svg>">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container container">
+            <div class="logo">Jesus Discipleship Ministry</div>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="programs.html">Programs</a></li>
+                <li><a href="events.html">Events</a></li>
+                <li><a href="give.html">Give</a></li>
+                <li><a href="prayer-wall.html">Prayer Wall</a></li>
+                <li><a href="daily-scripture.html">Daily Scripture</a></li>
+                <li><a href="sermons.html">Sermons</a></li>
+                <li><a href="live-stream.html">Live Stream</a></li>
+                <li><a href="hymns.html">Hymns</a></li>
+                <li><a href="prayer-rooms.html">Prayer Rooms</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <button class="theme-toggle" id="theme-toggle">🌙</button>
+        </div>
+    </nav>
+
+    <main>
+        <div class="page-header">
+            <div class="container">
+                <h1>Hymn Library</h1>
+                <p>Search and sing along with our worship hymns</p>
+            </div>
+        </div>
+
+        <section class="hymns-section">
+            <div class="container">
+                <div class="search-section">
+                    <div class="search-bar">
+                        <input type="text" id="hymnSearch" placeholder="Search for hymns by title, number, or lyrics..." autocomplete="off">
+                        <button id="searchBtn">🔍 Search</button>
+                    </div>
+                    <div class="search-filters">
+                        <button class="filter-btn active" data-filter="all">All Hymns</button>
+                        <button class="filter-btn" data-filter="popular">Popular</button>
+                        <button class="filter-btn" data-filter="recent">Recently Sung</button>
+                        <button class="filter-btn" data-filter="favorites">Favorites</button>
+                    </div>
+                </div>
+
+                <div class="hymn-display">
+                    <div class="hymn-header">
+                        <h2 id="hymnTitle">Amazing Grace</h2>
+                        <div class="hymn-meta">
+                            <span class="hymn-number">#1</span>
+                            <span class="hymn-key">Key: G Major</span>
+                            <span class="hymn-author">Traditional</span>
+                        </div>
+                    </div>
+
+                    <div class="lyrics-container">
+                        <pre id="hymnLyrics">Amazing grace! How sweet the sound
+That saved a wretch like me!
+I once was lost, but now am found;
+Was blind, but now I see.
+
+'Twas grace that taught my heart to fear,
+And grace my fears relieved;
+How precious did that grace appear
+The hour I first believed!
+
+Through many dangers, toils and snares,
+I have already come;
+'Tis grace hath brought me safe thus far,
+And grace will lead me home.
+
+The Lord has promised good to me,
+His word my hope secures;
+He will my shield and portion be,
+As long as life endures.
+
+Yea, when this flesh and heart shall fail,
+And mortal life shall cease,
+I shall possess, within the veil,
+A life of joy and peace.
+
+When we've been there ten thousand years,
+Bright shining as the sun,
+We've no less days to sing God's praise
+Than when we'd first begun.</pre>
+                    </div>
+
+                    <div class="hymn-controls">
+                        <button class="control-btn" id="playBtn">🎵 Play Audio</button>
+                        <button class="control-btn" id="favoriteBtn">❤️ Add to Favorites</button>
+                        <button class="control-btn" id="shareBtn">📤 Share</button>
+                        <button class="control-btn" id="printBtn">🖨️ Print</button>
+                    </div>
+                </div>
+
+                <div class="hymn-list">
+                    <h3>All Hymns</h3>
+                    <div class="hymn-grid" id="hymnGrid">
+                        <!-- Hymns will be populated by JavaScript -->
+                    </div>
+                </div>
+
+                <div class="recently-sung">
+                    <h3>Recently Sung in Church</h3>
+                    <div class="recent-hymns">
+                        <div class="recent-hymn-item" data-hymn="1">
+                            <span class="hymn-num">#1</span>
+                            <span class="hymn-name">Amazing Grace</span>
+                            <span class="sung-date">Last Sunday</span>
+                        </div>
+                        <div class="recent-hymn-item" data-hymn="45">
+                            <span class="hymn-num">#45</span>
+                            <span class="hymn-name">Great Is Thy Faithfulness</span>
+                            <span class="sung-date">This Wednesday</span>
+                        </div>
+                        <div class="recent-hymn-item" data-hymn="23">
+                            <span class="hymn-num">#23</span>
+                            <span class="hymn-name">Holy, Holy, Holy</span>
+                            <span class="sung-date">Last Friday</span>
+                        </div>
+                        <div class="recent-hymn-item" data-hymn="67">
+                            <span class="hymn-num">#67</span>
+                            <span class="hymn-name">It Is Well With My Soul</span>
+                            <span class="sung-date">2 weeks ago</span>
+                        </div>
+                        <div class="recent-hymn-item" data-hymn="12">
+                            <span class="hymn-num">#12</span>
+                            <span class="hymn-name">How Great Thou Art</span>
+                            <span class="sung-date">3 weeks ago</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Contact Information</h3>
+                    <p><strong>Email:</strong> olusolaea12@gmail.com</p>
+                    <p><strong>Phone:</strong> +234 7067581767</p>
+                    <p><strong>Address:</strong> Yejide Junction, near St. Luke Grammar School, Mokola Ibadan, Nigeria</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Service Times</h3>
+                    <p><strong>Sunday Service:</strong> 9:00 AM</p>
+                    <p><strong>Discipleship class:</strong> Tuesday 6:00 PM</p>
+                    <p><strong>Solution hour:</strong> Thursday 5:00 PM</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Follow Us</h3>
+                    <p>Stay connected with our community through social media and regular updates.</p>
+                    <p><a href="https://www.facebook.com/profile.php?id=100086766063315">Facebook</a> | <a href="www.youtube.com/@olusolaemmanuelayodele">YouTube</a> | <a href="">Instagram</a></p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Jesus Discipleship Ministry. All rights reserved. | Founded 1990 | <a href="admin.html" style="color: #3498db; text-decoration: none;">Admin</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Hymn database
+        const hymns = [
+            { id: 1, title: "Amazing Grace", number: 1, author: "Traditional", key: "G Major", lyrics: "Amazing grace! How sweet the sound..." },
+            { id: 2, title: "Holy, Holy, Holy", number: 23, author: "Reginald Heber", key: "D Major", lyrics: "Holy, holy, holy! Lord God Almighty..." },
+            { id: 3, title: "Great Is Thy Faithfulness", number: 45, author: "Thomas Chisholm", key: "E Major", lyrics: "Great is Thy faithfulness, O God my Father..." },
+            { id: 4, title: "It Is Well With My Soul", number: 67, author: "Horatio Spafford", key: "F Major", lyrics: "When peace like a river attendeth my way..." },
+            { id: 5, title: "How Great Thou Art", number: 12, author: "Carl Boberg", key: "A Major", lyrics: "O Lord my God, when I in awesome wonder..." },
+            { id: 6, title: "The Old Rugged Cross", number: 34, author: "George Bennard", key: "G Major", lyrics: "On a hill far away stood an old rugged cross..." },
+            { id: 7, title: "Blessed Assurance", number: 56, author: "Fanny Crosby", key: "C Major", lyrics: "Blessed assurance, Jesus is mine..." },
+            { id: 8, title: "What a Friend We Have in Jesus", number: 78, author: "Joseph Scriven", key: "D Major", lyrics: "What a friend we have in Jesus..." },
+            { id: 9, title: "Jesus Loves Me", number: 89, author: "Anna Warner", key: "G Major", lyrics: "Jesus loves me, this I know..." },
+            { id: 10, title: "Joy to the World", number: 15, author: "Isaac Watts", key: "D Major", lyrics: "Joy to the world, the Lord has come..." }
+        ];
+
+        // DOM elements
+        const searchInput = document.getElementById('hymnSearch');
+        const searchBtn = document.getElementById('searchBtn');
+        const hymnGrid = document.getElementById('hymnGrid');
+        const hymnTitle = document.getElementById('hymnTitle');
+        const hymnLyrics = document.getElementById('hymnLyrics');
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const recentHymnItems = document.querySelectorAll('.recent-hymn-item');
+
+        // Display hymn
+        function displayHymn(hymn) {
+            hymnTitle.textContent = hymn.title;
+            hymnLyrics.textContent = hymn.lyrics;
+            document.querySelector('.hymn-number').textContent = `#${hymn.number}`;
+            document.querySelector('.hymn-key').textContent = `Key: ${hymn.key}`;
+            document.querySelector('.hymn-author').textContent = hymn.author;
+        }
+
+        // Populate hymn grid
+        function populateHymnGrid(filter = 'all') {
+            hymnGrid.innerHTML = '';
+            let filteredHymns = hymns;
+
+            switch(filter) {
+                case 'popular':
+                    filteredHymns = hymns.slice(0, 5);
+                    break;
+                case 'recent':
+                    filteredHymns = hymns.filter(h => [1, 45, 23, 67, 12].includes(h.id));
+                    break;
+                case 'favorites':
+                    // In a real app, this would come from localStorage
+                    filteredHymns = hymns.slice(0, 3);
+                    break;
+                default:
+                    filteredHymns = hymns;
+            }
+
+            filteredHymns.forEach(hymn => {
+                const hymnCard = document.createElement('div');
+                hymnCard.className = 'hymn-card';
+                hymnCard.innerHTML = `
+                    <div class="hymn-card-number">#${hymn.number}</div>
+                    <h4>${hymn.title}</h4>
+                    <p>${hymn.author}</p>
+                `;
+                hymnCard.addEventListener('click', () => displayHymn(hymn));
+                hymnGrid.appendChild(hymnCard);
+            });
+        }
+
+        // Search functionality
+        function searchHymns(query) {
+            const filtered = hymns.filter(hymn =>
+                hymn.title.toLowerCase().includes(query.toLowerCase()) ||
+                hymn.lyrics.toLowerCase().includes(query.toLowerCase()) ||
+                hymn.number.toString().includes(query)
+            );
+
+            hymnGrid.innerHTML = '';
+            if (filtered.length > 0) {
+                filtered.forEach(hymn => {
+                    const hymnCard = document.createElement('div');
+                    hymnCard.className = 'hymn-card';
+                    hymnCard.innerHTML = `
+                        <div class="hymn-card-number">#${hymn.number}</div>
+                        <h4>${hymn.title}</h4>
+                        <p>${hymn.author}</p>
+                    `;
+                    hymnCard.addEventListener('click', () => displayHymn(hymn));
+                    hymnGrid.appendChild(hymnCard);
+                });
+            } else {
+                hymnGrid.innerHTML = '<p>No hymns found matching your search.</p>';
+            }
+        }
+
+        // Event listeners
+        searchBtn.addEventListener('click', () => {
+            const query = searchInput.value.trim();
+            if (query) {
+                searchHymns(query);
+            } else {
+                populateHymnGrid();
+            }
+        });
+
+        searchInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                searchBtn.click();
+            }
+        });
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                const filter = btn.dataset.filter;
+                populateHymnGrid(filter);
+            });
+        });
+
+        recentHymnItems.forEach(item => {
+            item.addEventListener('click', () => {
+                const hymnId = parseInt(item.dataset.hymn);
+                const hymn = hymns.find(h => h.id === hymnId);
+                if (hymn) {
+                    displayHymn(hymn);
+                }
+            });
+        });
+
+        // Hymn controls
+        document.getElementById('playBtn').addEventListener('click', () => {
+            alert('Audio playback would be implemented with actual hymn recordings');
+        });
+
+        document.getElementById('favoriteBtn').addEventListener('click', () => {
+            alert('Added to favorites! (Would save to localStorage in full implementation)');
+        });
+
+        document.getElementById('shareBtn').addEventListener('click', () => {
+            const title = hymnTitle.textContent;
+            if (navigator.share) {
+                navigator.share({
+                    title: title,
+                    text: `Check out this hymn: ${title}`,
+                    url: window.location.href
+                });
+            } else {
+                navigator.clipboard.writeText(`${title} - ${window.location.href}`);
+                alert('Link copied to clipboard!');
+            }
+        });
+
+        document.getElementById('printBtn').addEventListener('click', () => {
+            window.print();
+        });
+
+        // Initialize
+        populateHymnGrid();
+    </script>
+    <script src="script.js"></script>
+</body>
+</html>

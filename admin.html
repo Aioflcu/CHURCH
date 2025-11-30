@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Jesus Discipleship Ministry</title>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⛪</text></svg>">
+    <style>
+        .admin-container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        .admin-header { background: #2c3e50; color: white; padding: 20px; border-radius: 8px; margin-bottom: 30px; }
+        .admin-nav { display: flex; gap: 20px; margin-bottom: 30px; }
+        .admin-nav button { padding: 10px 20px; border: none; background: #3498db; color: white; border-radius: 5px; cursor: pointer; }
+        .admin-nav button.active { background: #2980b9; }
+        .admin-section { display: none; }
+        .admin-section.active { display: block; }
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; margin-bottom: 5px; font-weight: 600; }
+        .form-group input, .form-group textarea, .form-group select { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; }
+        .btn { padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer; margin-right: 10px; }
+        .btn-primary { background: #3498db; color: white; }
+        .btn-secondary { background: #95a5a6; color: white; }
+        .btn-danger { background: #e74c3c; color: white; }
+        .content-list { margin-top: 20px; }
+        .content-item { border: 1px solid #ddd; padding: 15px; margin-bottom: 10px; border-radius: 4px; }
+        .content-item h4 { margin: 0 0 10px 0; }
+        .content-item p { margin: 5px 0; }
+        .login-form { max-width: 400px; margin: 100px auto; padding: 30px; border: 1px solid #ddd; border-radius: 8px; }
+        .login-form h2 { text-align: center; margin-bottom: 20px; }
+        .dashboard-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-bottom: 30px; }
+        .stat-card { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); text-align: center; }
+        .stat-card h3 { margin: 0; color: #3498db; font-size: 2em; }
+        .stat-card p { margin: 5px 0 0 0; color: #7f8c8d; }
+    </style>
+</head>
+<body>
+    <div id="login-section" class="login-form">
+        <h2>Admin Login</h2>
+        <form id="login-form">
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" required>
+            </div>
+            <button type="submit" class="btn btn-primary" style="width: 100%;">Login</button>
+        </form>
+    </div>
+
+    <div id="admin-dashboard" style="display: none;">
+        <nav class="navbar">
+            <div class="nav-container container">
+                <div class="logo">Admin Dashboard - Jesus Discipleship Ministry</div>
+                <button id="logout-btn" class="btn btn-danger">Logout</button>
+            </div>
+        </nav>
+
+        <main class="admin-container">
+            <div class="admin-header">
+                <h1>Content Management Dashboard</h1>
+                <p>Manage sermons, daily scriptures, and website content</p>
+            </div>
+
+            <div class="dashboard-stats">
+                <div class="stat-card">
+                    <h3 id="sermons-count">0</h3>
+                    <p>Total Sermons</p>
+                </div>
+                <div class="stat-card">
+                    <h3 id="scriptures-count">0</h3>
+                    <p>Daily Scriptures</p>
+                </div>
+                <div class="stat-card">
+                    <h3 id="prayers-count">0</h3>
+                    <p>Prayer Requests</p>
+                </div>
+            </div>
+
+            <nav class="admin-nav">
+                <button class="admin-nav-btn active" data-section="sermons">Manage Sermons</button>
+                <button class="admin-nav-btn" data-section="scriptures">Daily Scriptures</button>
+                <button class="admin-nav-btn" data-section="streams">Live Streams</button>
+                <button class="admin-nav-btn" data-section="prayers">Prayer Requests</button>
+            </nav>
+
+            <!-- Sermons Management -->
+            <section id="sermons-section" class="admin-section active">
+                <h2>Manage Sermons</h2>
+                <button class="btn btn-primary" onclick="showSermonForm()">Add New Sermon</button>
+
+                <div id="sermon-form" style="display: none; margin-top: 20px; padding: 20px; background: #f8f9fa; border-radius: 8px;">
+                    <h3 id="sermon-form-title">Add New Sermon</h3>
+                    <form id="sermon-form-data">
+                        <input type="hidden" id="sermon-id">
+                        <div class="form-group">
+                            <label for="sermon-title">Title</label>
+                            <input type="text" id="sermon-title" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="sermon-speaker">Speaker</label>
+                            <input type="text" id="sermon-speaker" value="Pastor Olusola Emmanuel Ayodele" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="sermon-date">Date</label>
+                            <input type="date" id="sermon-date" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="sermon-description">Description</label>
+                            <textarea id="sermon-description" rows="4" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="sermon-audio">Audio URL (YouTube, etc.)</label>
+                            <input type="url" id="sermon-audio" placeholder="https://youtube.com/...">
+                        </div>
+                        <div class="form-group">
+                            <label for="sermon-video">Video URL (YouTube, etc.)</label>
+                            <input type="url" id="sermon-video" placeholder="https://youtube.com/...">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Save Sermon</button>
+                        <button type="button" class="btn btn-secondary" onclick="hideSermonForm()">Cancel</button>
+                    </form>
+                </div>
+
+                <div class="content-list" id="sermons-list">
+                    <!-- Sermons will be loaded here -->
+                </div>
+            </section>
+
+            <!-- Daily Scriptures Management -->
+            <section id="scriptures-section" class="admin-section">
+                <h2>Manage Daily Scriptures</h2>
+                <button class="btn btn-primary" onclick="showScriptureForm()">Add Daily Scripture</button>
+
+                <div id="scripture-form" style="display: none; margin-top: 20px; padding: 20px; background: #f8f9fa; border-radius: 8px;">
+                    <h3 id="scripture-form-title">Add Daily Scripture</h3>
+                    <form id="scripture-form-data">
+                        <input type="hidden" id="scripture-id">
+                        <div class="form-group">
+                            <label for="scripture-date">Date</label>
+                            <input type="date" id="scripture-date" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="scripture-verse">Bible Verse</label>
+                            <input type="text" id="scripture-verse" placeholder="John 3:16" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="scripture-text">Scripture Text</label>
+                            <textarea id="scripture-text" rows="3" placeholder="For God so loved the world..." required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="scripture-reflection">Daily Reflection</label>
+                            <textarea id="scripture-reflection" rows="4" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="scripture-prayer">Prayer Point</label>
+                            <textarea id="scripture-prayer" rows="3" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Save Scripture</button>
+                        <button type="button" class="btn btn-secondary" onclick="hideScriptureForm()">Cancel</button>
+                    </form>
+                </div>
+
+                <div class="content-list" id="scriptures-list">
+                    <!-- Scriptures will be loaded here -->
+                </div>
+            </section>
+
+            <!-- Live Streams Management -->
+            <section id="streams-section" class="admin-section">
+                <h2>Manage Live Streams</h2>
+
+                <div style="margin-bottom: 30px; padding: 20px; background: #f8f9fa; border-radius: 8px;">
+                    <h3>Live Session Control</h3>
+                    <div style="display: flex; align-items: center; gap: 20px; margin-bottom: 20px;">
+                        <div class="status-indicator offline" id="live-status-display"></div>
+                        <span id="status-text">Currently Offline</span>
+                        <button id="start-live-btn" class="btn btn-primary" onclick="startLiveSession()">Start Live Session</button>
+                        <button id="end-live-btn" class="btn btn-danger" onclick="endLiveSession()" style="display: none;">End Live Session</button>
+                    </div>
+
+                    <div id="live-session-info" style="display: none; padding: 15px; background: white; border-radius: 5px; border-left: 4px solid #3498db;">
+                        <h4>Current Live Session</h4>
+                        <p><strong>Started:</strong> <span id="session-start-time"></span></p>
+                        <p><strong>Platform:</strong> <span id="session-platform"></span></p>
+                        <p><strong>Viewers:</strong> <span id="viewer-count">0</span></p>
+                    </div>
+                </div>
+
+                <div style="margin-bottom: 30px;">
+                    <h3>Stream URLs Setup</h3>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                        <div style="padding: 20px; background: white; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                            <h4>YouTube Live</h4>
+                            <div class="form-group">
+                                <label for="youtube-live-url">YouTube Live URL</label>
+                                <input type="url" id="youtube-live-url" placeholder="https://youtube.com/live/...">
+                            </div>
+                            <button class="btn btn-primary" onclick="saveYouTubeUrl()">Save YouTube URL</button>
+                            <div id="youtube-status" style="margin-top: 10px;"></div>
+                        </div>
+
+                        <div style="padding: 20px; background: white; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                            <h4>Facebook Live</h4>
+                            <div class="form-group">
+                                <label for="facebook-live-url">Facebook Live URL</label>
+                                <input type="url" id="facebook-live-url" placeholder="https://facebook.com/live/...">
+                            </div>
+                            <button class="btn btn-primary" onclick="saveFacebookUrl()">Save Facebook URL</button>
+                            <div id="facebook-status" style="margin-top: 10px;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="margin-bottom: 30px;">
+                    <h3>Notifications & Chat</h3>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                        <div style="padding: 20px; background: white; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                            <h4>Send Notification</h4>
+                            <div class="form-group">
+                                <label for="custom-notification">Notification Message</label>
+                                <textarea id="custom-notification" rows="3" placeholder="Enter notification message..."></textarea>
+                            </div>
+                            <button class="btn btn-primary" onclick="sendCustomNotification()">Send Notification</button>
+                        </div>
+
+                        <div style="padding: 20px; background: white; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                            <h4>Live Chat Moderation</h4>
+                            <p>Monitor and moderate live chat messages during streams.</p>
+                            <button class="btn btn-secondary" onclick="moderateChat()">Open Chat Moderation</button>
+                            <button class="btn btn-danger" onclick="clearChat()" style="margin-left: 10px;">Clear Chat</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="padding: 20px; background: white; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                    <h4>Live Chat Messages</h4>
+                    <div id="live-chat-messages" style="max-height: 300px; overflow-y: auto; padding: 10px; background: #f8f9fa; border-radius: 5px;">
+                        <p style="color: #666; font-style: italic;">Live chat messages will appear here during active streams...</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Prayer Requests Management -->
+            <section id="prayers-section" class="admin-section">
+                <h2>Manage Prayer Requests</h2>
+                <div class="content-list" id="prayers-list">
+                    <!-- Prayer requests will be loaded here -->
+                </div>
+            </section>
+        </main>
+
+        <footer class="footer">
+            <div class="container">
+                <div class="footer-content">
+                    <div class="footer-section">
+                        <h3>Contact Information</h3>
+                        <p><strong>Email:</strong> olusolaea12@gmail.com</p>
+                        <p><strong>Phone:</strong> +234 7067581767</p>
+                        <p><strong>Address:</strong> Yejide Junction, near St. Luke Grammar School, Mokola Ibadan, Nigeria</p>
+                    </div>
+                    <div class="footer-section">
+                        <h3>Service Times</h3>
+                        <p><strong>Sunday Service:</strong> 9:00 AM</p>
+                        <p><strong>Discipleship class:</strong> Tuesday 6:00 PM</p>
+                        <p><strong>Solution hour:</strong> Thursday 5:00 PM</p>
+                    </div>
+                    <div class="footer-section">
+                        <h3>Follow Us</h3>
+                        <p>Stay connected with our community through social media and regular updates.</p>
+                        <p><a href="https://www.facebook.com/profile.php?id=100086766063315">Facebook</a> | <a href="www.youtube.com/@olusolaemmanuelayodele">YouTube</a> | <a href="">Instagram</a></p>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <p>&copy; 2025 Jesus Discipleship Ministry. All rights reserved. | Founded 1990</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Admin password (in a real app, this would be server-side)
+        const ADMIN_PASSWORD = 'pastor2025';
+
+        // Data storage
+        let sermons = JSON.parse(localStorage.getItem('admin_sermons')) || [];
+        let scriptures = JSON.parse(localStorage.getItem('admin_scriptures')) || [];
+        let prayers = JSON.parse(localStorage.getItem('prayers')) || [];
+
+        // Login functionality
+        document.getElementById('login-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const password = document.getElementById('password').value;
+
+            if (password === ADMIN_PASSWORD) {
+                document.getElementById('login-section').style.display = 'none';
+                document.getElementById('admin-dashboard').style.display = 'block';
+                loadDashboard();
+            } else {
+                alert('Invalid password');
+            }
+        });
+
+        // Logout
+        document.getElementById('logout-btn').addEventListener('click', function() {
+            document.getElementById('login-section').style.display = 'block';
+            document.getElementById('admin-dashboard').style.display = 'none';
+            document.getElementById('password').value = '';
+        });
+
+        // Navigation
+        document.querySelectorAll('.admin-nav-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.admin-nav-btn').forEach(b => b.classList.remove('active'));
+                document.querySelectorAll('.admin-section').forEach(s => s.classList.remove('active'));
+
+                this.classList.add('active');
+                document.getElementById(this.dataset.section + '-section').classList.add('active');
+            });
+        });
+
+        // Load dashboard data
+        function loadDashboard() {
+            document.getElementById('sermons-count').textContent = sermons.length;
+            document.getElementById('scriptures-count').textContent = scriptures.length;
+            document.getElementById('prayers-count').textContent = prayers.length;
+
+            loadSermons();
+            loadScriptures();
+            loadPrayers();
+        }
+
+        // Sermons management
+        function showSermonForm(sermon = null) {
+            const form = document.getElementById('sermon-form');
+            const title = document.getElementById('sermon-form-title');
+
+            if (sermon) {
+                title.textContent = 'Edit Sermon';
+                document.getElementById('sermon-id').value = sermon.id;
+                document.getElementById('sermon-title').value = sermon.title;
+                document.getElementById('sermon-speaker').value = sermon.speaker;
+                document.getElementById('sermon-date').value = sermon.date;
+                document.getElementById('sermon-description').value = sermon.description;
+                document.getElementById('sermon-audio').value = sermon.audio || '';
+                document.getElementById('sermon-video').value = sermon.video || '';
+            } else {
+                title.textContent = 'Add New Sermon';
+                document.getElementById('sermon-form-data').reset();
+                document.getElementById('sermon-id').value = '';
+            }
+
+            form.style.display = 'block';
+        }
+
+        function hideSermonForm() {
+            document.getElementById('sermon-form').style.display = 'none';
+        }
+
+        document.getElementById('sermon-form-data').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const sermon = {
+                id: document.getElementById('sermon-id').value || Date.now().toString(),
+                title: document.getElementById('sermon-title').value,
+                speaker: document.getElementById('sermon-speaker').value,
+                date: document.getElementById('sermon-date').value,
+                description: document.getElementById('sermon-description').value,
+                audio: document.getElementById('sermon-audio').value,
+                video: document.getElementById('sermon-video').value
+            };
+
+            const existingIndex = sermons.findIndex(s => s.id === sermon.id);
+            if (existingIndex >= 0) {
+                sermons[existingIndex] = sermon;
+            } else {
+                sermons.unshift(sermon);
+            }
+
+            localStorage.setItem('admin_sermons', JSON.stringify(sermons));
+            hideSermonForm();
+            loadSermons();
+            loadDashboard();
+        });
+
+        function loadSermons() {
+            const list = document.getElementById('sermons-list');
+            list.innerHTML = sermons.map(sermon => `
+                <div class="content-item">
+                    <h4>${sermon.title}</h4>
+                    <p><strong>Speaker:</strong> ${sermon.speaker}</p>
+                    <p><strong>Date:</strong> ${new Date(sermon.date).toLocaleDateString()}</p>
+                    <p>${sermon.description}</p>
+                    <button class="btn btn-secondary" onclick="showSermonForm(${JSON.stringify(sermon).replace(/"/g, '"')})">Edit</button>
+                    <button class="btn btn-danger" onclick="deleteSermon('${sermon.id}')">Delete</button>
+                </div>
+            `).join('');
+        }
+
+        function deleteSermon(id) {
+            if (confirm('Are you sure you want to delete this sermon?')) {
+                sermons = sermons.filter(s => s.id !== id);
+                localStorage.setItem('admin_sermons', JSON.stringify(sermons));
+                loadSermons();
+                loadDashboard();
+            }
+        }
+
+        // Scriptures management
+        function showScriptureForm(scripture = null) {
+            const form = document.getElementById('scripture-form');
+            const title = document.getElementById('scripture-form-title');
+
+            if (scripture) {
+                title.textContent = 'Edit Daily Scripture';
+                document.getElementById('scripture-id').value = scripture.id;
+                document.getElementById('scripture-date').value = scripture.date;
+                document.getElementById('scripture-verse').value = scripture.verse;
+                document.getElementById('scripture-text').value = scripture.text;
+                document.getElementById('scripture-reflection').value = scripture.reflection;
+                document.getElementById('scripture-prayer').value = scripture.prayer;
+            } else {
+                title.textContent = 'Add Daily Scripture';
+                document.getElementById('scripture-form-data').reset();
+                document.getElementById('scripture-id').value = '';
+            }
+
+            form.style.display = 'block';
+        }
+
+        function hideScriptureForm() {
+            document.getElementById('scripture-form').style.display = 'none';
+        }
+
+        document.getElementById('scripture-form-data').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const scripture = {
+                id: document.getElementById('scripture-id').value || Date.now().toString(),
+                date: document.getElementById('scripture-date').value,
+                verse: document.getElementById('scripture-verse').value,
+                text: document.getElementById('scripture-text').value,
+                reflection: document.getElementById('scripture-reflection').value,
+                prayer: document.getElementById('scripture-prayer').value
+            };
+
+            const existingIndex = scriptures.findIndex(s => s.id === scripture.id);
+            if (existingIndex >= 0) {
+                scriptures[existingIndex] = scripture;
+            } else {
+                scriptures.unshift(scripture);
+            }
+
+            localStorage.setItem('admin_scriptures', JSON.stringify(scriptures));
+            hideScriptureForm();
+            loadScriptures();
+            loadDashboard();
+        });
+
+        function loadScriptures() {
+            const list = document.getElementById('scriptures-list');
+            list.innerHTML = scriptures.map(scripture => `
+                <div class="content-item">
+                    <h4>${scripture.verse}</h4>
+                    <p><strong>Date:</strong> ${new Date(scripture.date).toLocaleDateString()}</p>
+                    <p><em>"${scripture.text}"</em></p>
+                    <p><strong>Reflection:</strong> ${scripture.reflection}</p>
+                    <button class="btn btn-secondary" onclick="showScriptureForm(${JSON.stringify(scripture).replace(/"/g, '"')})">Edit</button>
+                    <button class="btn btn-danger" onclick="deleteScripture('${scripture.id}')">Delete</button>
+                </div>
+            `).join('');
+        }
+
+        function deleteScripture(id) {
+            if (confirm('Are you sure you want to delete this scripture?')) {
+                scriptures = scriptures.filter(s => s.id !== id);
+                localStorage.setItem('admin_scriptures', JSON.stringify(scriptures));
+                loadScriptures();
+                loadDashboard();
+            }
+        }
+
+        // Live streams management
+        function saveYouTubeUrl() {
+            const url = document.getElementById('youtube-live-url').value.trim();
+            const status = document.getElementById('youtube-status');
+
+            if (url) {
+                localStorage.setItem('youtube_live_url', url);
+                status.innerHTML = '<span style="color: green;">✓ YouTube URL saved successfully!</span>';
+                setTimeout(() => status.innerHTML = '', 3000);
+            } else {
+                localStorage.removeItem('youtube_live_url');
+                status.innerHTML = '<span style="color: orange;">YouTube URL cleared.</span>';
+                setTimeout(() => status.innerHTML = '', 3000);
+            }
+        }
+
+        function saveFacebookUrl() {
+            const url = document.getElementById('facebook-live-url').value.trim();
+            const status = document.getElementById('facebook-status');
+
+            if (url) {
+                localStorage.setItem('facebook_live_url', url);
+                status.innerHTML = '<span style="color: green;">✓ Facebook URL saved successfully!</span>';
+                setTimeout(() => status.innerHTML = '', 3000);
+            } else {
+                localStorage.removeItem('facebook_live_url');
+                status.innerHTML = '<span style="color: orange;">Facebook URL cleared.</span>';
+                setTimeout(() => status.innerHTML = '', 3000);
+            }
+        }
+
+        // Load saved URLs on page load
+        function loadStreamUrls() {
+            const youtubeUrl = localStorage.getItem('youtube_live_url');
+            const facebookUrl = localStorage.getItem('facebook_live_url');
+
+            if (youtubeUrl) {
+                document.getElementById('youtube-live-url').value = youtubeUrl;
+            }
+            if (facebookUrl) {
+                document.getElementById('facebook-live-url').value = facebookUrl;
+            }
+        }
+
+        // Prayer requests management
+        function loadPrayers() {
+            const list = document.getElementById('prayers-list');
+            list.innerHTML = prayers.map(prayer => `
+                <div class="content-item">
+                    <h4>${prayer.name || 'Anonymous'}</h4>
+                    <p><strong>Date:</strong> ${prayer.date}</p>
+                    <p>${prayer.request}</p>
+                    <p><strong>Prayed:</strong> ${prayer.prayedCount} times</p>
+                </div>
+            `).join('');
+        }
+
+        // Live session management
+        let liveSessionActive = JSON.parse(localStorage.getItem('live_session_active')) || false;
+        let liveSessionData = JSON.parse(localStorage.getItem('live_session_data')) || null;
+
+        function startLiveSession() {
+            const youtubeUrl = localStorage.getItem('youtube_live_url');
+            const facebookUrl = localStorage.getItem('facebook_live_url');
+
+            if (!youtubeUrl && !facebookUrl) {
+                alert('Please set up at least one live stream URL (YouTube or Facebook) before starting a live session.');
+                return;
+            }
+
+            liveSessionActive = true;
+            liveSessionData = {
+                startTime: new Date().toISOString(),
+                platform: youtubeUrl ? 'YouTube' : 'Facebook',
+                viewerCount: 0
+            };
+
+            localStorage.setItem('live_session_active', JSON.stringify(liveSessionActive));
+            localStorage.setItem('live_session_data', JSON.stringify(liveSessionData));
+
+            updateLiveStatus();
+            sendNotification('🎥 We are now LIVE! Join us for worship and fellowship.');
+
+            // Enable live stream access for users
+            localStorage.setItem('live_stream_enabled', 'true');
+        }
+
+        function endLiveSession() {
+            if (confirm('Are you sure you want to end the live session? This will notify users and disable live stream access.')) {
+                liveSessionActive = false;
+                liveSessionData = null;
+
+                localStorage.setItem('live_session_active', JSON.stringify(liveSessionActive));
+                localStorage.removeItem('live_session_data');
+                localStorage.removeItem('live_stream_enabled');
+
+                updateLiveStatus();
+                sendNotification('🏁 Live session has ended. Thank you for joining us! God bless you. 🙏');
+
+                // Reset notification flag so users get notified of session end
+                localStorage.setItem('last_live_notification', 'ended');
+            }
+        }
+
+        function updateLiveStatus() {
+            const statusDisplay = document.getElementById('live-status-display');
+            const statusText = document.getElementById('status-text');
+            const startBtn = document.getElementById('start-live-btn');
+            const endBtn = document.getElementById('end-live-btn');
+            const sessionInfo = document.getElementById('live-session-info');
+
+            if (liveSessionActive && liveSessionData) {
+                statusDisplay.className = 'status-indicator live';
+                statusText.textContent = 'LIVE - Session Active';
+                startBtn.style.display = 'none';
+                endBtn.style.display = 'inline-block';
+                sessionInfo.style.display = 'block';
+
+                document.getElementById('session-start-time').textContent = new Date(liveSessionData.startTime).toLocaleString();
+                document.getElementById('session-platform').textContent = liveSessionData.platform;
+                document.getElementById('viewer-count').textContent = liveSessionData.viewerCount;
+            } else {
+                statusDisplay.className = 'status-indicator offline';
+                statusText.textContent = 'Currently Offline';
+                startBtn.style.display = 'inline-block';
+                endBtn.style.display = 'none';
+                sessionInfo.style.display = 'none';
+            }
+        }
+
+        // Notification system
+        function sendNotification(message) {
+            // Store notification for users
+            const notifications = JSON.parse(localStorage.getItem('user_notifications')) || [];
+            notifications.unshift({
+                id: Date.now().toString(),
+                message: message,
+                timestamp: new Date().toISOString(),
+                type: 'live'
+            });
+
+            // Keep only last 10 notifications
+            if (notifications.length > 10) {
+                notifications.splice(10);
+            }
+
+            localStorage.setItem('user_notifications', JSON.stringify(notifications));
+
+            // Show confirmation
+            showNotificationStatus('Notification sent to all users!');
+        }
+
+        function sendCustomNotification() {
+            const message = document.getElementById('custom-notification').value.trim();
+            if (message) {
+                sendNotification(message);
+                document.getElementById('custom-notification').value = '';
+            }
+        }
+
+        function showNotificationStatus(message) {
+            // Create temporary status message
+            const statusDiv = document.createElement('div');
+            statusDiv.style.cssText = 'position: fixed; top: 20px; right: 20px; background: #4CAF50; color: white; padding: 15px; border-radius: 5px; z-index: 1000;';
+            statusDiv.textContent = message;
+            document.body.appendChild(statusDiv);
+
+            setTimeout(() => {
+                document.body.removeChild(statusDiv);
+            }, 3000);
+        }
+
+        // Chat moderation
+        function clearChat() {
+            if (confirm('Are you sure you want to clear all live chat messages?')) {
+                localStorage.removeItem('live_chat_messages');
+                document.getElementById('live-chat-messages').innerHTML = '<p style="color: #666; font-style: italic;">Chat cleared. New messages will appear here...</p>';
+                showNotificationStatus('Live chat cleared!');
+            }
+        }
+
+        function moderateChat() {
+            // In a real implementation, this would open a moderation interface
+            alert('Chat moderation feature would allow you to:\n• View all chat messages\n• Delete inappropriate messages\n• Ban users from chat\n• Set chat rules\n\nThis would require backend integration for full functionality.');
+        }
+
+        // Load live session status on page load
+        function loadLiveSessionStatus() {
+            liveSessionActive = JSON.parse(localStorage.getItem('live_session_active')) || false;
+            liveSessionData = JSON.parse(localStorage.getItem('live_session_data')) || null;
+            updateLiveStatus();
+        }
+
+        // Initialize
+        loadDashboard();
+        loadStreamUrls();
+        loadLiveSessionStatus();
+    </script>
+    <script src="script.js"></script>
+</body>
+</html>

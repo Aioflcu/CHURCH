@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Scripture - Jesus Discipleship Ministry</title>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⛪</text></svg>">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container container">
+            <div class="logo">Jesus Discipleship Ministry</div>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="programs.html">Programs</a></li>
+                <li><a href="events.html">Events</a></li>
+                <li><a href="give.html">Give</a></li>
+                <li><a href="prayer-wall.html">Prayer Wall</a></li>
+                <li><a href="daily-scripture.html">Daily Scripture</a></li>
+                <li><a href="sermons.html">Sermons</a></li>
+                <li><a href="live-stream.html">Live Stream</a></li>
+                <li><a href="hymns.html">Hymns</a></li>
+                <li><a href="prayer-rooms.html">Prayer Rooms</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <button class="theme-toggle" id="theme-toggle">🌙</button>
+        </div>
+    </nav>
+
+    <main>
+        <div class="page-header">
+            <div class="container">
+                <h1>Daily Scripture</h1>
+                <p>Daily Bible verses to inspire and guide your walk with God</p>
+            </div>
+        </div>
+
+        <section class="scripture-section">
+            <div class="container">
+                <div class="scripture-card" id="daily-scripture">
+                    <div class="scripture-content">
+                        <blockquote id="scripture-text">
+                            "For God so loved the world that he gave his one and only Son, that whoever believes in him shall not perish but have eternal life."
+                        </blockquote>
+                        <cite id="scripture-reference">- John 3:16</cite>
+                    </div>
+                    <div class="scripture-actions">
+                        <button class="btn btn-outline" onclick="shareScripture()">Share</button>
+                        <button class="btn btn-outline" onclick="getNewScripture()">New Verse</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="scripture-info">
+            <div class="container">
+                <div class="scripture-text">
+                    <h2>The Importance of Daily Scripture</h2>
+                    <p>"Your word is a lamp for my feet, a light on my path." - Psalm 119:105</p>
+                    <p>Reading God's Word daily helps us:</p>
+                    <ul>
+                        <li>Grow in our relationship with God</li>
+                        <li>Find guidance for daily decisions</li>
+                        <li>Strengthen our faith</li>
+                        <li>Memorize and meditate on God's promises</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Contact Information</h3>
+                    <p><strong>Email:</strong> info@jesusdiscipleshipministry.org</p>
+                    <p><strong>Phone:</strong> +234 XXX XXX XXXX</p>
+                    <p><strong>Address:</strong> Yejide Junction, near St. Luke Grammar School, Mokola Ibadan, Nigeria</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Service Times</h3>
+                    <p><strong>Sunday Service:</strong> 10:00 AM</p>
+                    <p><strong>Bible Study:</strong> Wednesday 6:00 PM</p>
+                    <p><strong>Prayer Meeting:</strong> Friday 7:00 PM</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Follow Us</h3>
+                    <p>Stay connected with our community through social media and regular updates.</p>
+                    <p><a href="#">Facebook</a> | <a href="#">YouTube</a> | <a href="#">Instagram</a></p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Jesus Discipleship Ministry. All rights reserved. | Founded 2010</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // Daily Scripture functionality
+        const scriptures = [
+            {
+                verse: "John 3:16",
+                text: "For God so loved the world that he gave his one and only Son, that whoever believes in him shall not perish but have eternal life."
+            },
+            {
+                verse: "Psalm 23:1",
+                text: "The Lord is my shepherd, I lack nothing."
+            },
+            {
+                verse: "Jeremiah 29:11",
+                text: "For I know the plans I have for you, declares the Lord, plans to prosper you and not to harm you, plans to give you hope and a future."
+            },
+            {
+                verse: "Philippians 4:13",
+                text: "I can do all things through Christ who strengthens me."
+            },
+            {
+                verse: "Proverbs 3:5-6",
+                text: "Trust in the Lord with all your heart and lean not on your own understanding; in all your ways submit to him, and he will make your paths straight."
+            },
+            {
+                verse: "Romans 8:28",
+                text: "And we know that in all things God works for the good of those who love him, who have been called according to his purpose."
+            },
+            {
+                verse: "Matthew 11:28",
+                text: "Come to me, all you who are weary and burdened, and I will give you rest."
+            }
+        ];
+
+        function getNewScripture() {
+            const today = new Date().getDay();
+            const scripture = scriptures[today % scriptures.length];
+            displayScripture(scripture);
+        }
+
+        function displayScripture(scripture) {
+            document.getElementById('scripture-text').textContent = `"${scripture.text}"`;
+            document.getElementById('scripture-reference').textContent = `- ${scripture.verse}`;
+        }
+
+        function shareScripture() {
+            const text = document.getElementById('scripture-text').textContent;
+            const reference = document.getElementById('scripture-reference').textContent;
+            const shareText = `${text} ${reference} - Jesus Discipleship Ministry`;
+
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Daily Scripture',
+                    text: shareText,
+                    url: window.location.href
+                });
+            } else {
+                // Fallback for browsers that don't support Web Share API
+                navigator.clipboard.writeText(shareText).then(() => {
+                    alert('Scripture copied to clipboard!');
+                });
+            }
+        }
+
+        // Load today's scripture on page load
+        getNewScripture();
+    </script>
+</body>
+</html>

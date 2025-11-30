@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prayer Wall - Jesus Discipleship Ministry</title>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⛪</text></svg>">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container container">
+            <div class="logo">Jesus Discipleship Ministry</div>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="programs.html">Programs</a></li>
+                <li><a href="events.html">Events</a></li>
+                <li><a href="give.html">Give</a></li>
+                <li><a href="prayer-wall.html">Prayer Wall</a></li>
+                <li><a href="daily-scripture.html">Daily Scripture</a></li>
+                <li><a href="sermons.html">Sermons</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <button class="theme-toggle" id="theme-toggle">🌙</button>
+        </div>
+    </nav>
+
+    <main>
+        <div class="page-header">
+            <div class="container">
+                <h1>Prayer Wall</h1>
+                <p>Share your prayer requests and pray for others</p>
+            </div>
+        </div>
+
+        <section class="prayer-section">
+            <div class="container">
+                <div class="prayer-form">
+                    <h2>Submit a Prayer Request</h2>
+                    <form id="prayer-form">
+                        <div class="form-group">
+                            <label for="name">Name (optional)</label>
+                            <input type="text" id="name" name="name" placeholder="Your name">
+                        </div>
+                        <div class="form-group">
+                            <label for="request">Prayer Request</label>
+                            <textarea id="request" name="request" required placeholder="Share your prayer request..."></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit Request</button>
+                    </form>
+                </div>
+
+                <div class="prayer-requests">
+                    <h2>Prayer Requests</h2>
+                    <div id="prayers-container">
+                        <!-- Prayer requests will be loaded here -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="prayer-info">
+            <div class="container">
+                <div class="prayer-text">
+                    <h2>The Power of Prayer</h2>
+                    <p>"Therefore I tell you, whatever you ask for in prayer, believe that you have received it, and it will be yours." - Mark 11:24</p>
+                    <p>"Do not be anxious about anything, but in every situation, by prayer and petition, with thanksgiving, present your requests to God." - Philippians 4:6</p>
+                    <p>Our prayer wall is a place where our community can share prayer requests and support each other through prayer. Your prayers make a difference!</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Contact Information</h3>
+                    <p><strong>Email:</strong> olusolaea12@gmail.com</p>
+                    <p><strong>Phone:</strong> +234 7067581767</p>
+                    <p><strong>Address:</strong> Yejide Junction, near St. Luke Grammar School, Mokola Ibadan, Nigeria</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Service Times</h3>
+                    <p><strong>Sunday Service:</strong> 9:00 AM</p>
+                    <p><strong>Discipleship class:</strong> Tuesday 6:00 PM</p>
+                    <p><strong>Solution hour:</strong> Thursday 5:00 PM</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Follow Us</h3>
+                    <p>Stay connected with our community through social media and regular updates.</p>
+                    <p><a href="https://www.facebook.com/profile.php?id=100086766063315">Facebook</a> | <a href="www.youtube.com/@olusolaemmanuelayodele">YouTube</a> | <a href="">Instagram</a></p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Jesus Discipleship Ministry. All rights reserved. | Founded 1990 | <a href="admin.html" style="color: #3498db; text-decoration: none;">Admin</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // Prayer Wall functionality
+        let prayers = JSON.parse(localStorage.getItem('prayers')) || [
+            {
+                id: 1,
+                name: 'Sarah M.',
+                request: 'Please pray for my grandmother who is in the hospital. She needs healing and strength.',
+                date: '2024-12-15',
+                prayedCount: 5
+            },
+            {
+                id: 2,
+                name: 'Anonymous',
+                request: 'Praying for guidance in my career decisions. I need wisdom from God.',
+                date: '2024-12-14',
+                prayedCount: 3
+            },
+            {
+                id: 3,
+                name: 'Michael K.',
+                request: 'Please pray for my family during this difficult time. We need peace and comfort.',
+                date: '2024-12-13',
+                prayedCount: 7
+            }
+        ];
+
+        function savePrayers() {
+            localStorage.setItem('prayers', JSON.stringify(prayers));
+        }
+
+        function renderPrayers() {
+            const container = document.getElementById('prayers-container');
+            if (prayers.length === 0) {
+                container.innerHTML = '<p>No prayer requests yet. Be the first to share!</p>';
+                return;
+            }
+
+            container.innerHTML = prayers.map(prayer => `
+                <div class="prayer-card">
+                    <div class="prayer-header">
+                        <span class="prayer-name">${prayer.name || 'Anonymous'}</span>
+                        <span class="prayer-date">${prayer.date}</span>
+                    </div>
+                    <p class="prayer-text">${prayer.request}</p>
+                    <div class="prayer-actions">
+                        <button class="btn btn-outline pray-btn" onclick="prayForRequest(${prayer.id})">
+                            🙏 Pray (${prayer.prayedCount})
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function prayForRequest(id) {
+            const prayer = prayers.find(p => p.id === id);
+            if (prayer) {
+                prayer.prayedCount++;
+                savePrayers();
+                renderPrayers();
+            }
+        }
+
+        // Handle form submission
+        document.getElementById('prayer-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const name = document.getElementById('name').value;
+            const request = document.getElementById('request').value;
+
+            if (request.trim()) {
+                const newPrayer = {
+                    id: Date.now(),
+                    name: name.trim() || null,
+                    request: request.trim(),
+                    date: new Date().toISOString().split('T')[0],
+                    prayedCount: 0
+                };
+
+                prayers.unshift(newPrayer); // Add to beginning
+                savePrayers();
+                renderPrayers();
+
+                // Reset form
+                this.reset();
+                alert('Thank you for sharing your prayer request. We will pray for you!');
+            }
+        });
+
+        // Initial render
+        renderPrayers();
+    </script>
+</body>
+</html>

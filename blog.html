@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog & News - Jesus Discipleship Ministry</title>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⛪</text></svg>">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container container">
+            <div class="logo">Jesus Discipleship Ministry</div>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="programs.html">Programs</a></li>
+                <li><a href="events.html">Events</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="give.html">Give</a></li>
+                <li><a href="prayer-wall.html">Prayer Wall</a></li>
+                <li><a href="daily-scripture.html">Daily Scripture</a></li>
+                <li><a href="live-stream.html">Live Stream</a></li>
+                <li><a href="hymns.html">Hymns</a></li>
+                <li><a href="prayer-rooms.html">Prayer Rooms</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <button class="nav-toggle" id="nav-toggle">☰</button>
+            <button class="theme-toggle" id="theme-toggle">🌙</button>
+        </div>
+    </nav>
+
+    <main>
+        <div class="page-header">
+            <div class="container">
+                <h1>Blog & News</h1>
+                <p>Stay updated with the latest from our ministry</p>
+            </div>
+        </div>
+
+        <section class="blog-section">
+            <div class="container">
+                <div class="blog-grid" id="blog-posts">
+                    <!-- Blog posts will be loaded here -->
+                </div>
+
+                <div class="load-more-container">
+                    <button id="load-more-btn" class="btn btn-primary">Load More Posts</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="newsletter-section">
+            <div class="container">
+                <div class="newsletter-content">
+                    <h2>Stay Connected</h2>
+                    <p>Subscribe to our newsletter for weekly updates, devotionals, and ministry news.</p>
+                    <form id="newsletter-form" class="newsletter-form">
+                        <input type="email" id="newsletter-email" placeholder="Enter your email address" required>
+                        <button type="submit" class="btn btn-primary">Subscribe</button>
+                    </form>
+                    <p id="newsletter-message" style="margin-top: 1rem; display: none;"></p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Contact Information</h3>
+                    <p><strong>Email:</strong> olusolaea12@gmail.com</p>
+                    <p><strong>Phone:</strong> +234 7067581767</p>
+                    <p><strong>Address:</strong> Yejide Junction, near St. Luke Grammar School, Mokola Ibadan, Nigeria</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Service Times</h3>
+                    <p><strong>Sunday Service:</strong> 9:00 AM</p>
+                    <p><strong>Discipleship class:</strong> Tuesday 6:00 PM</p>
+                    <p><strong>Solution hour:</strong> Thursday 5:00 PM</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Follow Us</h3>
+                    <p>Stay connected with our community through social media and regular updates.</p>
+                    <p><a href="https://www.facebook.com/profile.php?id=100086766063315">Facebook</a> | <a href="www.youtube.com/@olusolaemmanuelayodele">YouTube</a> | <a href="">Instagram</a></p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Jesus Discipleship Ministry. All rights reserved. | Founded 1990 | <a href="admin.html" style="color: #3498db; text-decoration: none;">Admin</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // Blog functionality
+        let currentPage = 1;
+        const postsPerPage = 6;
+
+        // Sample blog posts data
+        const blogPosts = [
+            {
+                id: 1,
+                title: "Walking in Faith: Our Journey This Year",
+                excerpt: "As we reflect on the past year, we see God's faithfulness in every step of our ministry journey...",
+                content: "Full content here...",
+                author: "Pastor Olusola Emmanuel Ayodele",
+                date: "2024-12-20",
+                category: "Ministry Updates",
+                image: "https://images.unsplash.com/photo-1507692049790-de58290a4354?w=400",
+                readTime: "5 min read"
+            },
+            {
+                id: 2,
+                title: "The Power of Prayer in Our Community",
+                excerpt: "Prayer has been the foundation of our ministry, transforming lives and strengthening our community...",
+                content: "Full content here...",
+                author: "Prayer Ministry Team",
+                date: "2024-12-18",
+                category: "Prayer",
+                image: "https://images.unsplash.com/photo-1507692049790-de58290a4354?w=400",
+                readTime: "4 min read"
+            },
+            {
+                id: 3,
+                title: "Youth Ministry: Raising the Next Generation",
+                excerpt: "Our youth are the future of the church. Discover how we're investing in their spiritual growth...",
+                content: "Full content here...",
+                author: "Youth Ministry Leader",
+                date: "2024-12-15",
+                category: "Youth",
+                image: "https://images.unsplash.com/photo-1507692049790-de58290a4354?w=400",
+                readTime: "6 min read"
+            },
+            {
+                id: 4,
+                title: "Community Outreach: Making a Difference",
+                excerpt: "From feeding programs to educational support, see how we're serving our local community...",
+                content: "Full content here...",
+                author: "Outreach Ministry",
+                date: "2024-12-12",
+                category: "Outreach",
+                image: "https://images.unsplash.com/photo-1507692049790-de58290a4354?w=400",
+                readTime: "5 min read"
+            },
+            {
+                id: 5,
+                title: "Sunday Service Highlights",
+                excerpt: "A recap of our recent Sunday service and the powerful message that touched many hearts...",
+                content: "Full content here...",
+                author: "Worship Team",
+                date: "2024-12-10",
+                category: "Worship",
+                image: "https://images.unsplash.com/photo-1507692049790-de58290a4354?w=400",
+                readTime: "3 min read"
+            },
+            {
+                id: 6,
+                title: "Testimonials: Lives Changed by Faith",
+                excerpt: "Hear from members of our congregation about how God has transformed their lives...",
+                content: "Full content here...",
+                author: "Testimony Coordinator",
+                date: "2024-12-08",
+                category: "Testimonials",
+                image: "https://images.unsplash.com/photo-1507692049790-de58290a4354?w=400",
+                readTime: "7 min read"
+            }
+        ];
+
+        function renderBlogPosts(page = 1) {
+            const startIndex = (page - 1) * postsPerPage;
+            const endIndex = startIndex + postsPerPage;
+            const postsToShow = blogPosts.slice(startIndex, endIndex);
+
+            const blogGrid = document.getElementById('blog-posts');
+
+            if (page === 1) {
+                blogGrid.innerHTML = '';
+            }
+
+            postsToShow.forEach(post => {
+                const postElement = document.createElement('div');
+                postElement.className = 'blog-card';
+                postElement.innerHTML = `
+                    <div class="blog-image">
+                        <img src="${post.image}" alt="${post.title}" loading="lazy">
+                        <div class="blog-category">${post.category}</div>
+                    </div>
+                    <div class="blog-content">
+                        <h3 class="blog-title">${post.title}</h3>
+                        <p class="blog-excerpt">${post.excerpt}</p>
+                        <div class="blog-meta">
+                            <span class="blog-author">By ${post.author}</span>
+                            <span class="blog-date">${formatDate(post.date)}</span>
+                            <span class="blog-read-time">${post.readTime}</span>
+                        </div>
+                        <a href="#" class="btn btn-outline read-more-btn" data-post-id="${post.id}">Read More</a>
+                    </div>
+                `;
+                blogGrid.appendChild(postElement);
+            });
+
+            // Hide load more button if no more posts
+            if (endIndex >= blogPosts.length) {
+                document.getElementById('load-more-btn').style.display = 'none';
+            }
+        }
+
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+        }
+
+        // Load more posts
+        document.getElementById('load-more-btn').addEventListener('click', () => {
+            currentPage++;
+            renderBlogPosts(currentPage);
+        });
+
+        // Newsletter signup
+        document.getElementById('newsletter-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = document.getElementById('newsletter-email').value;
+            const message = document.getElementById('newsletter-message');
+
+            // Simulate newsletter signup
+            message.textContent = 'Thank you for subscribing! You will receive our weekly newsletter.';
+            message.style.color = '#27ae60';
+            message.style.display = 'block';
+
+            this.reset();
+
+            setTimeout(() => {
+                message.style.display = 'none';
+            }, 5000);
+        });
+
+        // Initial render
+        renderBlogPosts();
+    </script>
+</body>
+</html>
